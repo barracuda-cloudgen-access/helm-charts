@@ -1,5 +1,9 @@
 # ☸ Helm charts for CloudGen Access products
 
+## Actions
+
+- Lint: `make lint`
+
 ## Contributing
 
 The charts can be found on Github: <https://github.com/barracuda-cloudgen-access/helm-charts>
