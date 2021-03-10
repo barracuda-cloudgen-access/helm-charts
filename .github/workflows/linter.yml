@@ -24,6 +24,14 @@ jobs:
       - name: Lint Code
         uses: github/super-linter@v3.15.2
         env:
-          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # These comments are in the same order as the exceptions below
+          # Kubeval error "Missing 'metadata' key" on Chart.yaml
+          # Exclude yaml from helm templates - yamllint parses incorrectly
+          FILTER_REGEX_EXCLUDE:
+            "(\
+            Chart.yaml|\
+            charts/.*/templates/.*\\.yaml|\
+            )"

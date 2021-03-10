@@ -1,0 +1,22 @@
+{{- if .Values.envoy.loadBalancer.enabled -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cga-proxy.envoy.fullname" . }}-load-balancer
+  labels:
+    {{- include "cga-proxy.labels" . | nindent 4 }}
+    {{- include "cga-proxy.envoy.labels" . | nindent 4 }}
+  annotations:
+    {{- toYaml .Values.envoy.loadBalancer.annotations | nindent 4 }}
+spec:
+  externalTrafficPolicy: {{ .Values.envoy.loadBalancer.externalTrafficPolicy }}
+  ports:
+    - name: listener
+      protocol: TCP
+      port: {{ .Values.envoy.loadBalancer.port }}
+      targetPort: listener
+  selector:
+    {{- include "cga-proxy.selectorLabels" . | nindent 4 }}
+    {{- include "cga-proxy.envoy.labels" . | nindent 4 }}
+  type: LoadBalancer
+{{- end -}}

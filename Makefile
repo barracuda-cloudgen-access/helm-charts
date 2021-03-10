@@ -8,4 +8,6 @@ SHELL = /bin/bash
 ### Actions
 
 lint:
+	helm dependency update ./charts/*
+	helm lint ./charts/*
 	act -j linter --env-file <(echo "RUN_LOCAL=true")
