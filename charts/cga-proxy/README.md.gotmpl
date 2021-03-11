@@ -1,0 +1,30 @@
+{{ template "chart.header" . }}
+
+{{ template "chart.versionBadge" . }}{{ template "chart.typeBadge" . }}
+
+{{ template "chart.description" . }}
+
+## Installing the Chart
+
+To install the chart with the release name `my-release`:
+
+```console
+$ helm repo add barracuda-cloudgen-access https://barracuda-cloudgen-access.github.io/helm-charts
+$ helm install my-release barracuda-cloudgen-access/{{ template "chart.name" . }}
+```
+
+## URLs
+
+{{ template "chart.homepageLine" . }}
+
+**Documentation:** <https://campus.barracuda.com/product/cloudgenaccess/doc/93201588/cloudgen-access-proxy>
+
+**Product homepage:** <https://www.barracuda.com/products/cloudgen-access>
+
+{{ template "chart.maintainersSection" . }}
+
+{{ template "chart.sourcesSection" . }}
+
+{{ template "chart.requirementsSection" . }}
+
+{{ template "chart.valuesSection" . }}

@@ -13,8 +13,13 @@ helm repo add barracuda-cloudgen-access https://barracuda-cloudgen-access.github
 
 You can then run `helm search repo barracuda-cloudgen-access` to see the charts.
 
+## Charts
+
+- [CloudGen Access Proxy](./charts/cga-proxy/README.md)
+
 ## Actions
 
+- Create chart docs: `make helm-docs`
 - Lint: `make lint`
 
 ## Contributing
