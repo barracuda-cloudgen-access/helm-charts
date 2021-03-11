@@ -26,7 +26,7 @@ jobs:
 
       - name: Add dependency chart repos
         run: |
-          make helm-deps
+          helm repo add dandydeveloper https://dandydeveloper.github.io/charts
 
       - name: Run chart-releaser
         uses: helm/chart-releaser-action@v1.2.0
