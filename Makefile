@@ -3,7 +3,7 @@
 .ONESHELL:
 SHELL = /bin/bash
 .SHELLFLAGS = -eu -c
-.PHONY: git-clean helm-docs lint
+.PHONY: git-clean helm-deps helm-docs lint
 
 ### Actions
 
@@ -15,10 +15,12 @@ git-clean:
 		exit 1
 	fi
 
-lint:
-	helm dependency update ./charts/*
+lint: helm-deps
 	helm lint ./charts/*
 	act -j linter --env-file <(echo "RUN_LOCAL=true")
+
+helm-deps:
+	helm dependency update ./charts/*
 
 helm-docs:
 	docker run --rm --volume "$$(pwd):/helm-docs" \
