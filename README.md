@@ -1,5 +1,8 @@
 # ☸ Helm charts for Barracuda CloudGen Access
 
+[![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/barracuda-cga-helm-charts)](https://artifacthub.io/packages/search?repo=barracuda-cga-helm-charts)
+![Release Charts](https://github.com/barracuda-cloudgen-access/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)
+
 ## Usage
 
 [Helm](https://helm.sh) needs to be installed to use the charts.
