@@ -1,0 +1,4 @@
+{{- if .Values.envoy.loadBalancer.enabled -}}
+It may take a few minutes for the LoadBalancer IP to be available.
+You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "cga-proxy.envoy.fullname" . }}-load-balancer'
+{{- end -}}

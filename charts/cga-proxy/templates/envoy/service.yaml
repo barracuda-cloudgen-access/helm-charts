@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cga-proxy.envoy.fullname" . }}
+  labels:
+    {{- include "cga-proxy.labels" . | nindent 4 }}
+    {{- include "cga-proxy.envoy.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.envoy.service.port.listener }}
+      targetPort: listener
+      protocol: TCP
+      name: listener
+    {{- if .Values.serviceMonitor }}
+    - port: {{ .Values.envoy.service.port.metrics }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- end }}
+  selector:
+    {{- include "cga-proxy.selectorLabels" . | nindent 4 }}
+    {{- include "cga-proxy.envoy.labels" . | nindent 4 }}

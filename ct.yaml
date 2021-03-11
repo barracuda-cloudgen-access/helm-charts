@@ -1,0 +1,6 @@
+target-branch: main
+chart-dirs:
+  - charts
+chart-repos:
+  dandydeveloper=https://dandydeveloper.github.io/charts
+validate-maintainers: false

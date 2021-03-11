@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "cga-proxy.orchestrator.fullname" . }}
+  labels:
+    {{- include "cga-proxy.labels" . | nindent 4 }}
+    {{- include "cga-proxy.orchestrator.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.orchestrator.service.port.grpc }}
+      targetPort: grpc
+      protocol: TCP
+      name: grpc
+    {{- if .Values.serviceMonitor }}
+    - port: {{ .Values.orchestrator.service.port.metrics }}
+      targetPort: metrics
+      protocol: TCP
+      name: metrics
+    {{- end }}
+  selector:
+    {{- include "cga-proxy.selectorLabels" . | nindent 4 }}
+    {{- include "cga-proxy.orchestrator.labels" . | nindent 4 }}

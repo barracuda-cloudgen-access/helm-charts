@@ -1,0 +1,235 @@
+# Default values for cga-proxy.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Provide a name in place of cga-proxy for labels
+nameOverride: ""
+
+# Provide a name to substitute for the full names of resources
+fullnameOverride: ""
+
+# Provide pod annotations that all pods will use
+commonPodAnnotations: {}
+
+# Create service monitor resources
+serviceMonitor: false
+
+revisionHistoryLimit: 10
+
+priorityClassName: ""
+
+# Configurations for orchestrator deployment
+orchestrator:
+
+  # Specify existingSecret values or set newSecret value
+  # existingSecret has higher priority when defined
+  # More information for enrollment token
+  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201527/add-cga-proxy
+  enrollmentToken:
+    existingSecret:
+      name: ""
+      key: ""
+    newSecret:
+      value: ""
+
+  # Enabling high availability will deploy a redis cluster
+  # To use an existing redis cluster provide redis settings with environment variables
+  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201613/access-proxy-high-availability/
+  highAvailability:
+    enabled: false
+
+  # If high availability is enabled this value will be increased by one
+  replicaCount: 1
+
+  image:
+    repository: fydeinc/fydeproxy-centos
+    pullPolicy: IfNotPresent
+    tag: "1.3.7"
+    sha256: 4a4a367eaef1240d6e49cbefd2c44206530d32425b64d569419c784cb3a7092b
+
+  # Configure orchestrator with environment variables
+  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters/
+  customEnv: []
+    # - name: FYDE_ENABLE_IPV6
+    #   value: "false"
+
+  service:
+    port:
+      grpc: 50051
+      metrics: 9010
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+
+# Configurations for envoy deployment
+envoy:
+
+  # Envoy can scale as desired
+  replicaCount: 1
+
+  image:
+    repository: fydeinc/envoyproxy-centos
+    pullPolicy: IfNotPresent
+    tag: "1.13.4.2"
+    sha256: 5504668542ab15808be4580ea40ace90ca849579ef7eb299542e9c4d4f4d4b2a
+
+  # Configure envoy with environment variables
+  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters/
+  customEnv: []
+    # - name: FYDE_LOGLEVEL
+    #   value: info
+
+  # Load balancer is required to allow outbound traffic to the proxy
+  loadBalancer:
+    enabled: false
+
+    annotations: {}
+      # NLB on AWS
+      # service.beta.kubernetes.io/aws-load-balancer-type: nlb
+      # service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags:
+      #   app=cga-proxy,service=envoy-listener
+
+    # externalTrafficPolicy "Local" is recomended to ensure minimum hops
+    # change to "Cluster" if you experience network issues
+    externalTrafficPolicy: Local
+
+    # Port must match the one defined on CloudGen Access Console
+    port: 443
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  service:
+    port:
+      listener: 8000
+      metrics: 9000
+
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+
+# https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml
+redis-ha:
+
+  nameOverride: cga-proxy-redis
+
+  image:
+    repository: redis
+    tag: 6.0.12-alpine@sha256:544c73548eef48d170b9ec98259dc3efcbb1a7b16ef65d0ab9e521114961458b
+    pullPolicy: IfNotPresent
+
+  ## replicas number for each component
+  replicas: 3
+
+  priorityClassName: ""
+
+  serviceAccount:
+    create: true
+    automountToken: false
+
+  podSecurityPolicy:
+    create: false
+
+  rbac:
+    create: true
+
+  redis:
+    port: 6379
+    masterGroupName: cga-proxy-redis
+    resources: {}
+    #  requests:
+    #    cpu: 100m
+    #    memory: 200Mi
+    #  limits:
+    #    cpu: 100m
+    #    memory: 200Mi
+
+  sentinel:
+    port: 26379
+    auth: false
+    quorum: 2
+    config:
+      down-after-milliseconds: 10000
+      failover-timeout: 180000
+      parallel-syncs: 5
+      maxclients: 100
+    resources: {}
+    #  requests:
+    #    cpu: 100m
+    #    memory: 200Mi
+    #  limits:
+    #    cpu: 100m
+    #    memory: 200Mi
+
+  securityContext:
+    runAsUser: 1000
+    fsGroup: 1000
+    runAsNonRoot: true
+
+  hardAntiAffinity: false
+
+  # Prometheus exporter specific configuration options
+  exporter:
+    enabled: false
+    image: oliver006/redis_exporter
+    tag: v1.17.1@sha256:73e90b4ad4697d1f9de24befd0a574dc6e8ba28f923152182523551cd77b4b24
+    pullPolicy: IfNotPresent
+
+    # prometheus port & scrape path
+    port: 9121
+    portName: exporter-port
+    scrapePath: /metrics
+
+    resources: {}
+    #  requests:
+    #    cpu: 100m
+    #    memory: 200Mi
+    #  limits:
+    #    cpu: 100m
+    #    memory: 200Mi
+
+    serviceMonitor:
+      enabled: false
+
+  podDisruptionBudget: {}
+    # maxUnavailable: 1
+    # minAvailable: 1
+
+  persistentVolume:
+    enabled: false

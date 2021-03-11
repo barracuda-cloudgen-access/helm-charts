@@ -1,4 +1,17 @@
-# ☸ Helm charts for CloudGen Access products
+# ☸ Helm charts for Barracuda CloudGen Access
+
+## Usage
+
+[Helm](https://helm.sh) needs to be installed to use the charts.
+Refer to Helm's [documentation](https://helm.sh/docs/) for more information.
+
+Add the repo as follows:
+
+```sh
+helm repo add barracuda-cloudgen-access https://barracuda-cloudgen-access.github.io/helm-charts
+```
+
+You can then run `helm search repo barracuda-cloudgen-access` to see the charts.
 
 ## Actions
 
@@ -10,7 +23,7 @@ The charts can be found on Github: <https://github.com/barracuda-cloudgen-access
 
 ## Reporting issues
 
-You can see existing issues and report new ones [on GitHub](https://github.com/barracuda-cloudgen-access/helm-charts/issues).
+You can see existing issues and report new ones on [GitHub](https://github.com/barracuda-cloudgen-access/helm-charts/issues).
 
 ## License
 

@@ -3,3 +3,6 @@
 
 # Chart dependencies
 /charts/*/charts
+
+# Chart testing
+charts/cga-proxy/ci/test-values.yaml
