@@ -3,9 +3,17 @@
 .ONESHELL:
 SHELL = /bin/bash
 .SHELLFLAGS = -eu -c
-.PHONY: git-clean helm-deps helm-docs lint
+.PHONY: gh-pages-readme-sync git-clean helm-deps helm-docs lint
 
 ### Actions
+
+gh-pages-readme-sync:
+	git fetch --all
+	git checkout gh-pages
+	git checkout main README.md
+	git commit -m "Sync README.md"
+	git push origin gh-pages
+	git checkout -
 
 git-clean:
 	@if git diff --exit-code; then
