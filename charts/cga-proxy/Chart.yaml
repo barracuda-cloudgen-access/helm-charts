@@ -1,10 +1,10 @@
 apiVersion: v2
 name: cga-proxy
-description: A Helm chart for Barracuda CloudGen Access cga-proxy
+description: A Helm chart for Barracuda CloudGen Access Proxy
 home: https://github.com/barracuda-cloudgen-access/helm-charts
 icon: https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/blob/main/misc/CGA_ico_500x500.png
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "1.0.0"
 keywords:
   - barracuda

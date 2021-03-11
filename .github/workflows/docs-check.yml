@@ -1,0 +1,13 @@
+name: Docs check
+
+on: pull_request
+
+jobs:
+  docs-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Ensure documentation is updated
+        run: make helm-docs git-clean

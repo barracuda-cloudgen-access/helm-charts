@@ -2,20 +2,22 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# Provide a name in place of cga-proxy for labels
+# -- Provide a name in place of cga-proxy for labels
 nameOverride: ""
 
-# Provide a name to substitute for the full names of resources
+# -- Provide a name to substitute for the full names of resources
 fullnameOverride: ""
 
-# Provide pod annotations that all pods will use
+# -- Provide pod annotations that all pods will use
 commonPodAnnotations: {}
 
-# Create service monitor resources
+# -- Create service monitor resources
 serviceMonitor: false
 
+# -- Set revision history limit
 revisionHistoryLimit: 10
 
+# -- Set priorityClassName for envoy and orchestrator
 priorityClassName: ""
 
 # Configurations for orchestrator deployment
@@ -24,39 +26,58 @@ orchestrator:
   # Specify existingSecret values or set newSecret value
   # existingSecret has higher priority when defined
   # More information for enrollment token
-  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201527/add-cga-proxy
+  # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201527/add-cga-proxy>
   enrollmentToken:
     existingSecret:
+      # -- Existing secret resource name
       name: ""
+      # -- Existing secret key
       key: ""
     newSecret:
+      # -- Enrollment token value to be created with new secret
       value: ""
 
-  # Enabling high availability will deploy a redis cluster
-  # To use an existing redis cluster provide redis settings with environment variables
-  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201613/access-proxy-high-availability/
+  # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201613/access-proxy-high-availability>
   highAvailability:
+    # -- Enabling high availability will deploy a redis cluster.
+    # To use an existing redis cluster provide redis settings with environment variables instead
     enabled: false
 
-  # If high availability is enabled this value will be increased by one
+  # -- Number of replicas for deployment.
+  # If orchestrator.highAvailability.enabled is "true" this value is incremented by one
   replicaCount: 1
 
   image:
+    # -- Docker image to use
     repository: fydeinc/fydeproxy-centos
+    # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
+    # -- Docker image tag
     tag: "1.3.7"
+    # -- Docker image checksum
     sha256: 4a4a367eaef1240d6e49cbefd2c44206530d32425b64d569419c784cb3a7092b
 
-  # Configure orchestrator with environment variables
-  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters/
+  # -- Configure orchestrator with environment variables.
+  # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
   customEnv: []
     # - name: FYDE_ENABLE_IPV6
     #   value: "false"
 
   service:
     port:
+      # -- Port number to serve grpc service
       grpc: 50051
+      # -- Port number to serve prometheus metrics
       metrics: 9010
+
+  # -- Recomended resources for initial deployment
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
   podSecurityContext: {}
     # fsGroup: 2000
@@ -68,14 +89,6 @@ orchestrator:
     # readOnlyRootFilesystem: true
     # runAsNonRoot: true
     # runAsUser: 1000
-
-  resources: {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
 
   podAnnotations: {}
   nodeSelector: {}
@@ -84,37 +97,62 @@ orchestrator:
 # Configurations for envoy deployment
 envoy:
 
+  # -- Number of replicas for deployment.
   # Envoy can scale as desired
   replicaCount: 1
 
   image:
+    # -- Docker image to use
     repository: fydeinc/envoyproxy-centos
+    # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
+    # -- Docker image tag
     tag: "1.13.4.2"
+    # -- Docker image checksum
     sha256: 5504668542ab15808be4580ea40ace90ca849579ef7eb299542e9c4d4f4d4b2a
 
-  # Configure envoy with environment variables
-  # https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters/
+  # -- Configure envoy with environment variables.
+  # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
   customEnv: []
     # - name: FYDE_LOGLEVEL
     #   value: info
 
   # Load balancer is required to allow outbound traffic to the proxy
   loadBalancer:
+    # -- Set to true to deploy a load balancer
     enabled: false
 
+    # -- Specify required annotations to configure load balancer
     annotations: {}
       # NLB on AWS
       # service.beta.kubernetes.io/aws-load-balancer-type: nlb
       # service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags:
       #   app=cga-proxy,service=envoy-listener
 
-    # externalTrafficPolicy "Local" is recomended to ensure minimum hops
+    # -- Set externalTrafficPolicy for the load balancer service.
+    # "Local" is recomended to ensure minimum hops.
     # change to "Cluster" if you experience network issues
     externalTrafficPolicy: Local
 
-    # Port must match the one defined on CloudGen Access Console
+    # -- Set load balancer external port.
+    # Must match the one defined on CloudGen Access Console
     port: 443
+
+  service:
+    port:
+      # -- Port number to serve listener service
+      listener: 8000
+      # -- Port number to serve prometheus metrics
+      metrics: 9000
+
+  # -- Recomended resources for initial deployment
+  resources: {}
+    # limits:
+    #   cpu: 500m
+    #   memory: 512Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
 
   podSecurityContext: {}
     # fsGroup: 2000
@@ -127,24 +165,13 @@ envoy:
     # runAsNonRoot: true
     # runAsUser: 1000
 
-  service:
-    port:
-      listener: 8000
-      metrics: 9000
-
-  resources: {}
-    # limits:
-    #   cpu: 500m
-    #   memory: 512Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
-
   podAnnotations: {}
   nodeSelector: {}
   tolerations: []
 
-# https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml
+# -- Only used when orchestrator.highAvailability.enabled is "true".
+# @default -- Required values are pre-configured.
+# All parameters: <https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml>
 redis-ha:
 
   nameOverride: cga-proxy-redis
@@ -154,7 +181,8 @@ redis-ha:
     tag: 6.0.12-alpine@sha256:544c73548eef48d170b9ec98259dc3efcbb1a7b16ef65d0ab9e521114961458b
     pullPolicy: IfNotPresent
 
-  ## replicas number for each component
+  # -- Replicas number for each component.
+  # Minimum required is 3
   replicas: 3
 
   priorityClassName: ""
@@ -172,6 +200,8 @@ redis-ha:
   redis:
     port: 6379
     masterGroupName: cga-proxy-redis
+
+    # -- Recomended resources for initial deployment
     resources: {}
     #  requests:
     #    cpu: 100m
@@ -189,6 +219,8 @@ redis-ha:
       failover-timeout: 180000
       parallel-syncs: 5
       maxclients: 100
+
+    # -- Recomended resources for initial deployment
     resources: {}
     #  requests:
     #    cpu: 100m
@@ -202,6 +234,7 @@ redis-ha:
     fsGroup: 1000
     runAsNonRoot: true
 
+  # -- Recomended to set to true in production
   hardAntiAffinity: false
 
   # Prometheus exporter specific configuration options
@@ -211,11 +244,12 @@ redis-ha:
     tag: v1.17.1@sha256:73e90b4ad4697d1f9de24befd0a574dc6e8ba28f923152182523551cd77b4b24
     pullPolicy: IfNotPresent
 
-    # prometheus port & scrape path
+    # Prometheus port & scrape path
     port: 9121
     portName: exporter-port
     scrapePath: /metrics
 
+    # -- Recomended resources for initial deployment
     resources: {}
     #  requests:
     #    cpu: 100m
@@ -225,11 +259,12 @@ redis-ha:
     #    memory: 200Mi
 
     serviceMonitor:
+      # -- Set to true to create a serviceMonitor resource
       enabled: false
 
   podDisruptionBudget: {}
-    # maxUnavailable: 1
-    # minAvailable: 1
+    # -- Recomended to enable in production
+    # minAvailable: 2
 
   persistentVolume:
     enabled: false
