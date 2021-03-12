@@ -175,6 +175,7 @@ envoy:
 redis-ha:
 
   nameOverride: cga-proxy-redis
+  fullnameOverride: ""
 
   image:
     repository: redis
