@@ -55,7 +55,7 @@ spec:
               value: {{ .Values.envoy.service.port.listener | quote }}
             {{- if .Values.orchestrator.highAvailability.enabled }}
             - name: FYDE_REDIS_SENTINEL_HOSTS
-              value: {{ printf "%s-%s:%d" .Release.Name (index .Values "redis-ha" "nameOverride") (index .Values "redis-ha" "sentinel" "port" | int) }}
+              value: {{ printf "%s:%d" (include "redis-ha-fullname" .) (index .Values "redis-ha" "sentinel" "port" | int) }}
             - name: FYDE_REDIS_SENTINEL_SERVICE_NAME
               value: {{ index .Values "redis-ha" "redis" "masterGroupName" }}
             {{- end }}
