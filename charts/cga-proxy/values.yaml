@@ -169,6 +169,51 @@ envoy:
   nodeSelector: {}
   tolerations: []
 
+# Configurations for http-test deployment
+http-test:
+
+  # -- Enabling http-test creates a deployment with an nginx pod serving a simple http page
+  enabled: false
+
+  image:
+    # -- Docker image to use
+    repository: fydeinc/http-test
+    # -- Docker image pullPolicy
+    pullPolicy: IfNotPresent
+    # -- Docker image tag
+    tag: latest
+    # -- Docker image checksum
+    sha256: ""
+
+  service:
+    port:
+      # -- Port number to serve http service
+      http: 80
+
+  # -- Recomended resources for deployment
+  resources:
+    limits:
+      cpu: 10m
+      memory: 16M
+    requests:
+      cpu: 10m
+      memory: 16M
+
+  podSecurityContext: {}
+    # fsGroup: 2000
+
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  podAnnotations: {}
+  nodeSelector: {}
+  tolerations: []
+
 # -- Only used when orchestrator.highAvailability.enabled is "true".
 # @default -- Required values are pre-configured.
 # All parameters: <https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml>

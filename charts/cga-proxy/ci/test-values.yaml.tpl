@@ -5,3 +5,6 @@ orchestrator:
       value: "$PROXY_TOKEN"
   highAvailability:
     enabled: true
+
+http-test:
+  enabled: true
