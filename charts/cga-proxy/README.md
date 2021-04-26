@@ -1,6 +1,6 @@
 # cga-proxy
 
-![Version: 0.1.4](https://img.shields.io/badge/Version-0.1.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Proxy
 
@@ -51,6 +51,18 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 | envoy.service.port.metrics | int | `9000` | Port number to serve prometheus metrics |
 | envoy.tolerations | list | `[]` |  |
 | fullnameOverride | string | `""` | Provide a name to substitute for the full names of resources |
+| http-test.enabled | bool | `false` | Enabling http-test creates a deployment with an nginx pod serving a simple http page |
+| http-test.image.pullPolicy | string | `"IfNotPresent"` | Docker image pullPolicy |
+| http-test.image.repository | string | `"fydeinc/http-test"` | Docker image to use |
+| http-test.image.sha256 | string | `""` | Docker image checksum |
+| http-test.image.tag | string | `"latest"` | Docker image tag |
+| http-test.nodeSelector | object | `{}` |  |
+| http-test.podAnnotations | object | `{}` |  |
+| http-test.podSecurityContext | object | `{}` |  |
+| http-test.resources | object | `{"limits":{"cpu":"10m","memory":"16M"},"requests":{"cpu":"10m","memory":"16M"}}` | Recomended resources for deployment |
+| http-test.securityContext | object | `{}` |  |
+| http-test.service.port.http | int | `80` | Port number to serve http service |
+| http-test.tolerations | list | `[]` |  |
 | nameOverride | string | `""` | Provide a name in place of cga-proxy for labels |
 | orchestrator.customEnv | list | `[]` | Configure orchestrator with environment variables. <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters> |
 | orchestrator.enrollmentToken.existingSecret.key | string | `""` | Existing secret key |

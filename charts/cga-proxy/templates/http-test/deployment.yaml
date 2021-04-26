@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cga-proxy.http-test.fullname" . }}
+  labels:
+    {{- include "cga-proxy.labels" . | nindent 4 }}
+    {{- include "cga-proxy.http-test.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  replicas: 1
+  selector:
+    matchLabels:
+      {{- include "cga-proxy.selectorLabels" . | nindent 6 }}
+      {{- include "cga-proxy.http-test.labels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        {{- with .Values.commonPodAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+        {{- with index .Values "http-test" "podAnnotations" }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "cga-proxy.selectorLabels" . | nindent 8 }}
+        {{- include "cga-proxy.http-test.labels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml (index .Values "http-test" "podSecurityContext") | nindent 8 }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      containers:
+        - name: http-test
+          securityContext:
+            {{- toYaml (index .Values "http-test" "securityContext") | nindent 12 }}
+          image: {{ include "cga-proxy.http-test.imageConcat" . }}
+          imagePullPolicy: {{ index .Values "http-test" "image" "pullPolicy" }}
+          ports:
+            - name: http
+              containerPort: {{ index .Values "http-test" "service" "port" "http" }}
+              protocol: TCP
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            tcpSocket:
+              port: http
+          resources:
+            {{- toYaml (index .Values "http-test" "resources") | nindent 12 }}
+      nodeSelector:
+        {{- toYaml (index .Values "http-test" "nodeSelector") | nindent 8 }}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                {{- include "cga-proxy.http-test.labels" . | nindent 16 }}
+            topologyKey: kubernetes.io/hostname
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    {{- include "cga-proxy.http-test.labels" . | nindent 20 }}
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+      tolerations:
+        {{- toYaml (index .Values "http-test" "tolerations") | nindent 8 }}

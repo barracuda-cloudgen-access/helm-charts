@@ -38,6 +38,13 @@ Fullname suffixed with envoy
 {{- end }}
 
 {{/*
+Fullname suffixed with http-test
+*/}}
+{{- define "cga-proxy.http-test.fullname" -}}
+{{- printf "%s-http-test" (include "cga-proxy.fullname" .) -}}
+{{- end }}
+
+{{/*
 Create chart name and version as used by the chart label.
 */}}
 {{- define "cga-proxy.chart" -}}
@@ -71,6 +78,13 @@ app.kubernetes.io/component: envoy
 {{- end }}
 
 {{/*
+Http-test labels
+*/}}
+{{- define "cga-proxy.http-test.labels" -}}
+app.kubernetes.io/component: http-test
+{{- end }}
+
+{{/*
 Selector labels
 */}}
 {{- define "cga-proxy.selectorLabels" -}}
@@ -97,6 +111,17 @@ Envoy image
 {{- printf "%s:%s@sha256:%s" .Values.envoy.image.repository .Values.envoy.image.tag .Values.envoy.image.sha256 -}}
 {{- else }}
 {{- printf "%s:%s" .Values.envoy.image.repository .Values.envoy.image.tag -}}
+{{- end }}
+{{- end }}
+
+{{/*
+http-test image
+*/}}
+{{- define "cga-proxy.http-test.imageConcat" -}}
+{{- if index .Values "http-test" "image" "sha256" }}
+{{- printf "%s:%s@sha256:%s" (index .Values "http-test" "image" "repository") (index .Values "http-test" "image" "sha256") -}}
+{{- else }}
+{{- printf "%s:%s" (index .Values "http-test" "image" "repository") (index .Values "http-test" "image" "tag") -}}
 {{- end }}
 {{- end }}
 
