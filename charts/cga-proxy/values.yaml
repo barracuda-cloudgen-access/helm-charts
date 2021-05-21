@@ -107,9 +107,9 @@ envoy:
     # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
     # -- Docker image tag
-    tag: "1.13.4.2"
+    tag: "1.13.8.1"
     # -- Docker image checksum
-    sha256: 5504668542ab15808be4580ea40ace90ca849579ef7eb299542e9c4d4f4d4b2a
+    sha256: 9d97c0e3c3f9f72e20c30d145dbd71bf1456e45a833ffe41aafe2b7b10eb2a02
 
   # -- Configure envoy with environment variables.
   # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
