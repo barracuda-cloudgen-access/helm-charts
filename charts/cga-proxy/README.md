@@ -1,6 +1,6 @@
 # cga-proxy
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Proxy
 
@@ -35,8 +35,8 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 | envoy.customEnv | list | `[]` | Configure envoy with environment variables. <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters> |
 | envoy.image.pullPolicy | string | `"IfNotPresent"` | Docker image pullPolicy |
 | envoy.image.repository | string | `"fydeinc/envoyproxy-centos"` | Docker image to use |
-| envoy.image.sha256 | string | `"5504668542ab15808be4580ea40ace90ca849579ef7eb299542e9c4d4f4d4b2a"` | Docker image checksum |
-| envoy.image.tag | string | `"1.13.4.2"` | Docker image tag |
+| envoy.image.sha256 | string | `"9d97c0e3c3f9f72e20c30d145dbd71bf1456e45a833ffe41aafe2b7b10eb2a02"` | Docker image checksum |
+| envoy.image.tag | string | `"1.13.8.1"` | Docker image tag |
 | envoy.loadBalancer.annotations | object | `{}` | Specify required annotations to configure load balancer |
 | envoy.loadBalancer.enabled | bool | `false` | Set to true to deploy a load balancer |
 | envoy.loadBalancer.externalTrafficPolicy | string | `"Local"` | Set externalTrafficPolicy for the load balancer service. "Local" is recomended to ensure minimum hops. change to "Cluster" if you experience network issues |
