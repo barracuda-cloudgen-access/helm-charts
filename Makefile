@@ -42,4 +42,5 @@ helm-test:
 	sleep 5
 	kubectl get pods
 	echo -e "\nNOTE:\n  The orchestrator pod will fail with 'CreateContainerConfigError' due to missing enrollment key"
+	echo -e "\nTo update configuration run:\n   helm upgrade cga-proxy-test ./charts/cga-proxy --set=http-test.enable=true"
 	echo -e "\nTo remove the cluster run:\n   kind delete cluster --name=cga-proxy-test"
