@@ -1,3 +1,4 @@
+{{- if index .Values "http-test" "enable" -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -15,3 +16,4 @@ spec:
   selector:
     {{- include "cga-proxy.selectorLabels" . | nindent 4 }}
     {{- include "cga-proxy.http-test.labels" . | nindent 4 }}
+{{- end -}}

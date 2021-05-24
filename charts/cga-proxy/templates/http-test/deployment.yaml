@@ -1,3 +1,4 @@
+{{- if index .Values "http-test" "enable" -}}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -64,3 +65,4 @@ spec:
                 topologyKey: failure-domain.beta.kubernetes.io/zone
       tolerations:
         {{- toYaml (index .Values "http-test" "tolerations") | nindent 8 }}
+{{- end -}}
