@@ -41,6 +41,13 @@ The charts can be found on Github: <https://github.com/barracuda-cloudgen-access
 
 You can see existing issues and report new ones on [GitHub](https://github.com/barracuda-cloudgen-access/helm-charts/issues).
 
+## Links
+
+- More deploy options:
+  - [Azure Templates](https://github.com/barracuda-cloudgen-access/azure-templates)
+  - [AWS Templates](https://github.com/barracuda-cloudgen-access/aws-templates)
+  - [Terraform Modules](https://github.com/barracuda-cloudgen-access/terraform-modules)
+
 ## License
 
 Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0), a OSI-approved license.
