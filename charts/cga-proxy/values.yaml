@@ -49,13 +49,13 @@ orchestrator:
 
   image:
     # -- Docker image to use
-    repository: fydeinc/fydeproxy-centos
+    repository: fydeinc/fydeproxy
     # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
     # -- Docker image tag
-    tag: "1.3.7"
+    tag: "1.3.8"
     # -- Docker image checksum
-    sha256: 4a4a367eaef1240d6e49cbefd2c44206530d32425b64d569419c784cb3a7092b
+    sha256: 54907f419bf629f915dcc05fecd8d737486276d866229c536432f335c43a9d5a
 
   # -- Configure orchestrator with environment variables.
   # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
