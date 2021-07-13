@@ -1,7 +1,15 @@
-# ☸ Helm charts for Barracuda CloudGen Access
+# Barracuda CloudGen Access - Helm charts
+
+![Barracuda CloudGen Access](./misc/cga-logo.png)
 
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/barracuda-cga-helm-charts)](https://artifacthub.io/packages/search?repo=barracuda-cga-helm-charts)
 ![Release Charts](https://github.com/barracuda-cloudgen-access/helm-charts/workflows/Release%20Charts/badge.svg?branch=main)
+
+Helm charts for Barracuda CloudGen Access resources
+
+Visit the [Website](https://www.barracuda.com/products/cloudgen-access)
+
+Check the [Product Documentation](https://campus.barracuda.com/product/cloudgenaccess/doc/93201218/overview/)
 
 ## Usage
 
@@ -32,6 +40,13 @@ The charts can be found on Github: <https://github.com/barracuda-cloudgen-access
 ## Reporting issues
 
 You can see existing issues and report new ones on [GitHub](https://github.com/barracuda-cloudgen-access/helm-charts/issues).
+
+## Links
+
+- More deploy options:
+  - [Azure Templates](https://github.com/barracuda-cloudgen-access/azure-templates)
+  - [AWS Templates](https://github.com/barracuda-cloudgen-access/aws-templates)
+  - [Terraform Modules](https://github.com/barracuda-cloudgen-access/terraform-modules)
 
 ## License
 
