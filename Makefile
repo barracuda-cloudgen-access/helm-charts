@@ -3,15 +3,20 @@
 .ONESHELL:
 SHELL = bash
 .SHELLFLAGS = -eu -c
-.PHONY: gh-pages-readme-sync git-clean helm-deps helm-docs lint
+.PHONY: gh-changelog gh-pages-readme-sync git-clean helm-deps helm-docs lint
 
 ### Actions
+
+gh-changelog:
+	./misc/get-tag-log-diff.sh
 
 gh-pages-readme-sync:
 	git fetch --all
 	git checkout gh-pages
 	git checkout main README.md
-	git commit -m "Sync README.md"
+	sed -i 's#./misc/cga-logo.png#https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/main/misc/cga-logo.png#g' README.md
+	git add README.md
+	git commit -m "Sync gh-pages"
 	git push origin gh-pages
 	git checkout -
 
@@ -23,16 +28,16 @@ git-clean:
 		exit 1
 	fi
 
-lint: helm-deps
-	helm lint ./charts/*
-	act -j linter --env-file <(echo "RUN_LOCAL=true")
-
 helm-deps:
 	helm dependency update ./charts/*
 
 helm-docs:
 	docker run --rm --volume "$$(pwd):/helm-docs" \
 		-u $$(id -u) jnorwood/helm-docs:v1.5.0
+
+lint: helm-deps
+	helm lint ./charts/*
+	act -j linter --env-file <(echo "RUN_LOCAL=true")
 
 # Use to test the deployment of the resources
 helm-test:
