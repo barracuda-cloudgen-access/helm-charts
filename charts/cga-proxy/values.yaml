@@ -53,9 +53,9 @@ orchestrator:
     # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
     # -- Docker image tag
-    tag: "1.3.8"
+    tag: "1.3.9"
     # -- Docker image checksum
-    sha256: 54907f419bf629f915dcc05fecd8d737486276d866229c536432f335c43a9d5a
+    sha256: 45f5d605ca9cb9d65c8196aaba2b513131b9a3bd256ee06140ab12b6e7e7be5d
 
   # -- Configure orchestrator with environment variables.
   # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
