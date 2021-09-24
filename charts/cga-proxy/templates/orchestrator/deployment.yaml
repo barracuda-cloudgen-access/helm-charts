@@ -47,9 +47,9 @@ spec:
                   name: {{ .Values.orchestrator.enrollmentToken.existingSecret.name | default (include "cga-proxy.orchestrator.fullname" .) }}
                   key: {{ .Values.orchestrator.enrollmentToken.existingSecret.key | default "enrollmentToken" }}
             - name: FYDE_PROXY_PROMETHEUS
-              value: {{ .Values.serviceMonitor | quote }}
+              value: {{ .Values.orchestrator.service.port.metrics | quote }}
             - name: FYDE_ENVOY_PROMETHEUS
-              value: {{ .Values.serviceMonitor | quote }}
+              value: {{ .Values.envoy.service.port.metrics | quote }}
             # Envoy reads the configuration from the orchestrator
             - name: FYDE_ENVOY_LISTENER_PORT
               value: {{ .Values.envoy.service.port.listener | quote }}
