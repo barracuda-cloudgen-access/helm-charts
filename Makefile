@@ -29,7 +29,8 @@ git-clean:
 	fi
 
 helm-deps:
-	helm dependency update ./charts/*
+	find ./charts/ -maxdepth 1 -mindepth 1 -type d -print0 \
+		-exec helm dependency update {} \;
 
 helm-docs:
 	docker run --rm --volume "$$(pwd):/helm-docs" \
@@ -40,12 +41,18 @@ lint: helm-deps
 	act -j linter --env-file <(echo "RUN_LOCAL=true")
 
 # Use to test the deployment of the resources
-helm-test:
-	@kind create cluster --name=cga-proxy-test
-	$(MAKE) helm-deps
-	helm install cga-proxy-test ./charts/cga-proxy --set=http-test.enabled=true
-	sleep 5
-	kubectl get pods
-	echo -e "\nNOTE:\n  The orchestrator pod will fail with 'CreateContainerConfigError' due to missing enrollment key"
-	echo -e "\nTo update configuration run:\n   helm upgrade cga-proxy-test ./charts/cga-proxy --set=http-test.enabled=true"
-	echo -e "\nTo remove the cluster run:\n   kind delete cluster --name=cga-proxy-test"
+helm-test-cga-proxy:
+	@./misc/helm-test.sh cga-proxy \
+		"${ENROLLMENT_TOKEN}"
+
+helm-test-cga-directory-connector:
+	@./misc/helm-test.sh cga-directory-connector \
+		"${ENROLLMENT_TOKEN}" \
+		"${AUTH_TYPE}" \
+		"${AUTH_TOKEN}"
+
+helm-test-clean:
+	@./misc/helm-test.sh clean
+
+helm-test-ci:
+	@./misc/helm-test.sh ci

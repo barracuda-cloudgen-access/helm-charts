@@ -1,0 +1,19 @@
+{{- if .Values.serviceMonitor -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "cga-directory-connector.fullname" . }}
+  labels:
+    {{- include "cga-directory-connector.labels" . | nindent 4 }}
+spec:
+  endpoints:
+  - interval: 10s
+    path: /
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      {{- include "cga-directory-connector.selectorLabels" . | nindent 6 }}
+{{- end }}
