@@ -1,0 +1,12 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }}.
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get all {{ .Release.Name }}
+
+Check the deployment status with :
+
+  $ kubectl get --namespace {{ .Release.Namespace }} deployment {{ include "cga-directory-connector.fullname" . }}

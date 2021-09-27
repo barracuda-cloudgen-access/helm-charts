@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "cga-directory-connector.fullname" . }}
+  labels:
+    {{- include "cga-directory-connector.labels" . | nindent 4 }}
+spec:
+  revisionHistoryLimit: {{ .Values.revisionHistoryLimit }}
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      {{- include "cga-directory-connector.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/secret.yaml") . | sha256sum }}
+        {{- with .Values.commonPodAnnotations }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      labels:
+        {{- include "cga-directory-connector.selectorLabels" . | nindent 8 }}
+    spec:
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      priorityClassName: {{ .Values.priorityClassName }}
+      containers:
+        - name: directory-connector
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: {{ include "cga-directory-connector.imageConcat" . }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            {{- with .Values.customEnv }}
+              {{- toYaml . | nindent 12 }}
+            {{- end }}
+            - name: FYDE_ENROLLMENT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.enrollmentToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
+                  key: {{ .Values.enrollmentToken.existingSecret.key | default "enrollmentToken" }}
+            - name: {{ printf "FYDE_%s_AUTH_TOKEN" (upper .Values.authToken.type) }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.authToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
+                  key: {{ .Values.authToken.existingSecret.key | default "authToken" }}
+            - name: FYDE_PROXY_PROMETHEUS
+              value: {{ .Values.service.port.metrics | quote }}
+            - name: FYDE_LOGLEVEL
+              value: {{ .Values.logLevel }}
+          {{- if .Values.serviceMonitor }}
+          ports:
+            - name: metrics
+              containerPort: {{ .Values.service.port.metrics }}
+              protocol: TCP
+          {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      nodeSelector:
+        {{- toYaml .Values.nodeSelector | nindent 8 }}
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}

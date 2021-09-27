@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Copyright © 2020 Barracuda Networks, Inc. All rights reserved.
+# Copyright © 2021 Barracuda Networks, Inc. All rights reserved.
 #
 
 # Set error handling
@@ -10,7 +10,7 @@ set -euo pipefail
 git fetch --tags 1>/dev/null
 
 # Get latest 2 tags
-mapfile -t GIT_TAGS_LATEST < <(git tag --sort=-committerdate | head -2)
+mapfile -t GIT_TAGS_LATEST < <(git tag --sort=-committerdate | grep "$1" | head -2)
 
 echo -e "${GIT_TAGS_LATEST[1]}...${GIT_TAGS_LATEST[0]}:"
 

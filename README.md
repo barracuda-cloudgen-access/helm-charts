@@ -27,6 +27,7 @@ You can then run `helm search repo barracuda-cloudgen-access` to see the charts.
 ## Charts
 
 - [CloudGen Access Proxy](./charts/cga-proxy/README.md)
+- [CloudGen Access Directory Connector](./charts/cga-directory-connector/README.md)
 
 ## Actions
 
