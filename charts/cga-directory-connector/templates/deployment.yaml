@@ -46,17 +46,21 @@ spec:
                   name: {{ .Values.authToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
                   key: {{ .Values.authToken.existingSecret.key | default "authToken" }}
             - name: FYDE_PROMETHEUS
-              value: {{ .Values.serviceMonitor | quote }}
+              value: "true"
             - name: FYDE_PROMETHEUS_PORT
               value: {{ .Values.service.port.metrics | quote }}
             - name: FYDE_LOGLEVEL
               value: {{ .Values.logLevel }}
-          {{- if .Values.serviceMonitor }}
           ports:
             - name: metrics
               containerPort: {{ .Values.service.port.metrics }}
               protocol: TCP
-          {{- end }}
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            httpGet:
+              path: /
+              port: metrics
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       nodeSelector:
