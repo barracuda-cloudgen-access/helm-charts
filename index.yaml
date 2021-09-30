@@ -3,6 +3,23 @@ entries:
   cga-directory-connector:
   - apiVersion: v2
     appVersion: 1.3.17
+    created: "2021-09-30T09:37:07.261038137Z"
+    description: A Helm chart for Barracuda CloudGen Access Directory Connector
+    digest: e9ad961d071a69569f55a036675daab22327b49c34f94232d445e41ddf2d06ab
+    home: https://github.com/barracuda-cloudgen-access/helm-charts
+    icon: https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/main/misc/CGA_ico_500x500.png
+    keywords:
+    - barracuda
+    - cloudgen
+    - access
+    - zero-trust
+    name: cga-directory-connector
+    type: application
+    urls:
+    - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-directory-connector-0.0.2/cga-directory-connector-0.0.2.tgz
+    version: 0.0.2
+  - apiVersion: v2
+    appVersion: 1.3.17
     created: "2021-09-27T08:50:04.619978883Z"
     description: A Helm chart for Barracuda CloudGen Access Directory Connector
     digest: f35ab77fa304383edb62881247d100a8b71e6ea419a0c1e46ed7a442ef1b320b
@@ -239,4 +256,4 @@ entries:
     urls:
     - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-proxy-0.1.2/cga-proxy-0.1.2.tgz
     version: 0.1.2
-generated: "2021-09-27T08:50:04.620014183Z"
+generated: "2021-09-30T09:37:07.261072838Z"
