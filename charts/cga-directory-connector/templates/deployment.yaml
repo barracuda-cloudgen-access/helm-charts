@@ -45,7 +45,9 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.authToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
                   key: {{ .Values.authToken.existingSecret.key | default "authToken" }}
-            - name: FYDE_PROXY_PROMETHEUS
+            - name: FYDE_PROMETHEUS
+              value: {{ .Values.serviceMonitor | quote }}
+            - name: FYDE_PROMETHEUS_PORT
               value: {{ .Values.service.port.metrics | quote }}
             - name: FYDE_LOGLEVEL
               value: {{ .Values.logLevel }}
