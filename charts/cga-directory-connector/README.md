@@ -1,6 +1,6 @@
 # cga-directory-connector
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Directory Connector
 
@@ -30,7 +30,11 @@ $ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 | authToken.newSecret.value | string | `""` | Enrollment token value to be created with new secret |
 | authToken.type | string | `""` | Available directory types: azure/google/okta |
 | commonPodAnnotations | object | `{}` | Provide pod annotations that all pods will use |
+| cronjob.enabled | bool | `false` | Enable cronjob usage |
+| cronjob.schedule | string | `"*/30 * * * *"` | Cronjob schedule |
+| cronjob.suspended | bool | `false` | Cronjob pause |
 | customEnv | list | `[]` | Configure directory-connector with environment variables. <https://campus.barracuda.com/product/cloudgenaccess/doc/93201555/parameters/> |
+| deployment.enabled | bool | `true` | Enable deployment usage |
 | enrollmentToken.existingSecret.key | string | `""` | Existing secret key |
 | enrollmentToken.existingSecret.name | string | `""` | Existing secret resource name |
 | enrollmentToken.newSecret.value | string | `""` | Enrollment token value to be created with new secret |
@@ -48,6 +52,7 @@ $ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 | resources | object | `{}` | Recomended resources for initial deployment |
 | revisionHistoryLimit | int | `10` | Set revision history limit |
 | securityContext | object | `{}` |  |
+| service.enabled | bool | `false` |  |
 | service.port.metrics | int | `9000` | Port number to serve prometheus metrics |
-| serviceMonitor | bool | `false` | Create service monitor resources |
+| serviceMonitor.enabled | bool | `false` | Enable serviceMonitor usage |
 | tolerations | list | `[]` |  |

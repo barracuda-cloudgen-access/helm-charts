@@ -11,8 +11,21 @@ fullnameOverride: ""
 # -- Provide pod annotations that all pods will use
 commonPodAnnotations: {}
 
-# -- Create service monitor resources
-serviceMonitor: false
+cronjob:
+  # -- Enable cronjob usage
+  enabled: false
+  # -- Cronjob schedule
+  schedule: "*/30 * * * *"
+  # -- Cronjob pause
+  suspended: false
+
+deployment:
+  # -- Enable deployment usage
+  enabled: true
+
+serviceMonitor:
+  # -- Enable serviceMonitor usage
+  enabled: false
 
 # -- Set revision history limit
 revisionHistoryLimit: 10
@@ -66,6 +79,7 @@ customEnv: []
   #   value: "Engineering"
 
 service:
+  enabled: false
   port:
     # -- Port number to serve prometheus metrics
     metrics: 9000
