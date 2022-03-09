@@ -12,6 +12,9 @@ spec:
   jobTemplate:
     spec:
       template:
+        metadata:
+          labels:
+            {{- include "cga-directory-connector.labels" . | nindent 12 }}
         spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
@@ -48,7 +51,7 @@ spec:
                   containerPort: {{ .Values.service.port.metrics }}
                   protocol: TCP
               readinessProbe:
-                initialDelaySeconds: 5
+                initialDelaySeconds: 10
                 periodSeconds: 5
                 httpGet:
                   path: /
