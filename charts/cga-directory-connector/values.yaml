@@ -17,8 +17,13 @@ cronjob:
   schedule: "*/30 * * * *"
   suspended: false
 
+# -- Create deployment
+deploymnet:
+  enabled: true
+
 # -- Create service monitor resources
-serviceMonitor: false
+serviceMonitor:
+  enabled: false
 
 # -- Set revision history limit
 revisionHistoryLimit: 10

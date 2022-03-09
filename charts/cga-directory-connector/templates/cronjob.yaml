@@ -1,12 +1,12 @@
 {{- if .Values.cronjob.enabled -}}
-apiVersion: batch/v1
-kind: Cronjob
+apiVersion: batch/v1beta1
+kind: CronJob
 metadata:
   name: {{ include "cga-directory-connector.fullname" . }}
   labels:
     {{- include "cga-directory-connector.labels" . | nindent 4 }}
 spec:
-  schedule: .Values.cronjob.schedule
+  schedule: {{ .Values.cronjob.schedule | quote }}
   concurrencyPolicy: Replace
   suspend: {{ .Values.cronjob.suspended | default "false" }}
   jobTemplate:
@@ -16,13 +16,14 @@ spec:
           securityContext:
             {{- toYaml .Values.podSecurityContext | nindent 12 }}
           priorityClassName: {{ .Values.priorityClassName }}
+          restartPolicy: Never
           containers:
             - name: directory-connector
               image: {{ include "cga-directory-connector.imageConcat" . }}
               imagePullPolicy: {{ .Values.image.pullPolicy }}
               env:
                 {{- with .Values.customEnv }}
-                  {{- toYaml . | nindent 12 }}
+                  {{- toYaml . | nindent 16 }}
                 {{- end }}
                 - name: FYDE_ENROLLMENT_TOKEN
                   valueFrom:
@@ -41,7 +42,7 @@ spec:
                 - name: FYDE_LOGLEVEL
                   value: {{ .Values.logLevel }}
                 - name: FYDE_RUN_ONCE
-                  value: true
+                  value: "true"
               ports:
                 - name: metrics
                   containerPort: {{ .Values.service.port.metrics }}
