@@ -1,6 +1,6 @@
 # cga-directory-connector
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.0.3](https://img.shields.io/badge/Version-0.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Directory Connector
 
@@ -32,7 +32,7 @@ $ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 | commonPodAnnotations | object | `{}` | Provide pod annotations that all pods will use |
 | cronjob | object | `{"enabled":false,"schedule":"*/30 * * * *","suspended":false}` | Create cronjob |
 | customEnv | list | `[]` | Configure directory-connector with environment variables. <https://campus.barracuda.com/product/cloudgenaccess/doc/93201555/parameters/> |
-| deploymnet | object | `{"enabled":true}` | Create deployment |
+| deployment | object | `{"enabled":true}` | Create deployment |
 | enrollmentToken.existingSecret.key | string | `""` | Existing secret key |
 | enrollmentToken.existingSecret.name | string | `""` | Existing secret resource name |
 | enrollmentToken.newSecret.value | string | `""` | Enrollment token value to be created with new secret |
