@@ -18,7 +18,7 @@ cronjob:
   suspended: false
 
 # -- Create deployment
-deploymnet:
+deployment:
   enabled: true
 
 # -- Create service monitor resources

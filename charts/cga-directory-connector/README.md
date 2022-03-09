@@ -30,7 +30,9 @@ $ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 | authToken.newSecret.value | string | `""` | Enrollment token value to be created with new secret |
 | authToken.type | string | `""` | Available directory types: azure/google/okta |
 | commonPodAnnotations | object | `{}` | Provide pod annotations that all pods will use |
+| cronjob | object | `{"enabled":false,"schedule":"*/30 * * * *","suspended":false}` | Create cronjob |
 | customEnv | list | `[]` | Configure directory-connector with environment variables. <https://campus.barracuda.com/product/cloudgenaccess/doc/93201555/parameters/> |
+| deploymnet | object | `{"enabled":true}` | Create deployment |
 | enrollmentToken.existingSecret.key | string | `""` | Existing secret key |
 | enrollmentToken.existingSecret.name | string | `""` | Existing secret resource name |
 | enrollmentToken.newSecret.value | string | `""` | Enrollment token value to be created with new secret |
@@ -48,6 +50,7 @@ $ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 | resources | object | `{}` | Recomended resources for initial deployment |
 | revisionHistoryLimit | int | `10` | Set revision history limit |
 | securityContext | object | `{}` |  |
+| service.enabled | bool | `false` |  |
 | service.port.metrics | int | `9000` | Port number to serve prometheus metrics |
-| serviceMonitor | bool | `false` | Create service monitor resources |
+| serviceMonitor | object | `{"enabled":false}` | Create service monitor resources |
 | tolerations | list | `[]` |  |
