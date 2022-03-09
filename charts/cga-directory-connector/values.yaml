@@ -13,7 +13,7 @@ commonPodAnnotations: {}
 
 # -- Create cronjob
 cronjob:
-  enabled: true
+  enabled: false
   schedule: "*/30 * * * *"
   suspended: false
 
