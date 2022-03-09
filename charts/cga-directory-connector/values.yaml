@@ -11,6 +11,12 @@ fullnameOverride: ""
 # -- Provide pod annotations that all pods will use
 commonPodAnnotations: {}
 
+# -- Create cronjob
+cronjob:
+  enabled: true
+  schedule: "*/30 * * * *"
+  suspended: false
+
 # -- Create service monitor resources
 serviceMonitor: false
 

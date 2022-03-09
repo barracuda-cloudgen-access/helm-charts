@@ -1,0 +1,61 @@
+{{- if .Values.cronjob.enabled -}}
+apiVersion: batch/v1
+kind: Cronjob
+metadata:
+  name: {{ include "cga-directory-connector.fullname" . }}
+  labels:
+    {{- include "cga-directory-connector.labels" . | nindent 4 }}
+spec:
+  schedule: .Values.cronjob.schedule
+  concurrencyPolicy: Replace
+  suspend: {{ .Values.cronjob.suspended | default "false" }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
+          priorityClassName: {{ .Values.priorityClassName }}
+          containers:
+            - name: directory-connector
+              image: {{ include "cga-directory-connector.imageConcat" . }}
+              imagePullPolicy: {{ .Values.image.pullPolicy }}
+              env:
+                {{- with .Values.customEnv }}
+                  {{- toYaml . | nindent 12 }}
+                {{- end }}
+                - name: FYDE_ENROLLMENT_TOKEN
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.enrollmentToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
+                      key: {{ .Values.enrollmentToken.existingSecret.key | default "enrollmentToken" }}
+                - name: {{ printf "FYDE_%s_AUTH_TOKEN" (upper .Values.authToken.type) }}
+                  valueFrom:
+                    secretKeyRef:
+                      name: {{ .Values.authToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
+                      key: {{ .Values.authToken.existingSecret.key | default "authToken" }}
+                - name: FYDE_PROMETHEUS
+                  value: "true"
+                - name: FYDE_PROMETHEUS_PORT
+                  value: {{ .Values.service.port.metrics | quote }}
+                - name: FYDE_LOGLEVEL
+                  value: {{ .Values.logLevel }}
+                - name: FYDE_RUN_ONCE
+                  value: true
+              ports:
+                - name: metrics
+                  containerPort: {{ .Values.service.port.metrics }}
+                  protocol: TCP
+              readinessProbe:
+                initialDelaySeconds: 5
+                periodSeconds: 5
+                httpGet:
+                  path: /
+                  port: metrics
+              resources:
+                {{- toYaml .Values.resources | nindent 16 }}
+          nodeSelector:
+            {{- toYaml .Values.nodeSelector | nindent 12 }}
+          tolerations:
+            {{- toYaml .Values.tolerations | nindent 12 }}
+{{- end }}
