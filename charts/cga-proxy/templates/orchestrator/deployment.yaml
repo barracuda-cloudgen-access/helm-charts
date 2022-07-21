@@ -81,10 +81,9 @@ spec:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
-              matchExpressions:
+              matchLabels:
                 {{- include "cga-proxy.orchestrator.labels" . | nindent 16 }}
             topologyKey: kubernetes.io/hostname
-        podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
             - weight: 100
               podAffinityTerm:
