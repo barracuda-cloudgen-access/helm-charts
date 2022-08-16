@@ -1,6 +1,6 @@
 # cga-proxy
 
-![Version: 0.2.8](https://img.shields.io/badge/Version-0.2.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Proxy
 
@@ -71,8 +71,8 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 | orchestrator.highAvailability.enabled | bool | `false` | Enabling high availability will deploy a redis cluster. To use an existing redis cluster provide redis settings with environment variables instead |
 | orchestrator.image.pullPolicy | string | `"IfNotPresent"` | Docker image pullPolicy |
 | orchestrator.image.repository | string | `"fydeinc/fydeproxy"` | Docker image to use |
-| orchestrator.image.sha256 | string | `"31e5d0267905e8d1cf8636af3d3bf6baeaa28bd9217c80018258cceee1bc7ab5"` | Docker image checksum |
-| orchestrator.image.tag | string | `"1.3.11"` | Docker image tag |
+| orchestrator.image.sha256 | string | `"1a7deb5ae211bf74b2e7eb4a47263e13ee11edeb4ac9c1509e1e3e569bee3eb9"` | Docker image checksum |
+| orchestrator.image.tag | string | `"1.3.14"` | Docker image tag |
 | orchestrator.nodeSelector | object | `{}` |  |
 | orchestrator.podAnnotations | object | `{}` |  |
 | orchestrator.podSecurityContext | object | `{}` |  |
