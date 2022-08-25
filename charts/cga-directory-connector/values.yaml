@@ -65,9 +65,9 @@ image:
   # -- Docker image pullPolicy
   pullPolicy: IfNotPresent
   # -- Docker image tag
-  tag: "1.3.18"
+  tag: "1.3.20"
   # -- Docker image checksum
-  sha256: c773c5604f83f49dd755088c72cdfbe9fbc754ef43052f4e15c2d108dfd0759a
+  sha256: eeead5526ad7643a24c4b16ab8623146acef0e13bf63c01023484315d8acc032
 
 # -- Log level to use. Valid values: error/warning/info/debug
 logLevel: info
