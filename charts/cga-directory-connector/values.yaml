@@ -47,18 +47,6 @@ enrollmentToken:
     # -- Enrollment token value to be created with new secret
     value: ""
 
-authToken:
-  # -- Available directory types: azure/google/okta
-  type: ""
-  existingSecret:
-    # -- Existing secret resource name
-    name: ""
-    # -- Existing secret key
-    key: ""
-  newSecret:
-    # -- Enrollment token value to be created with new secret
-    value: ""
-
 image:
   # -- Docker image to use
   repository: fydeinc/fyde-connector
