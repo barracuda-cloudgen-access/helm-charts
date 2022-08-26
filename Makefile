@@ -41,15 +41,15 @@ lint: helm-deps
 	act -j linter --env-file <(echo "RUN_LOCAL=true")
 
 # Use to test the deployment of the resources
+# make helm-test-cga-proxy ENROLLMENT_TOKEN="${ENROLLMENT_TOKEN}"
 helm-test-cga-proxy:
 	@./misc/helm-test.sh cga-proxy \
 		"${ENROLLMENT_TOKEN}"
 
+# make helm-test-cga-directory-connector ENROLLMENT_TOKEN="${ENROLLMENT_TOKEN}"
 helm-test-cga-directory-connector:
 	@./misc/helm-test.sh cga-directory-connector \
-		"${ENROLLMENT_TOKEN}" \
-		"${AUTH_TYPE}" \
-		"${AUTH_TOKEN}"
+		"${ENROLLMENT_TOKEN}"
 
 helm-test-clean:
 	@./misc/helm-test.sh clean

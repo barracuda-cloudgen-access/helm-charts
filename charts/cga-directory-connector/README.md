@@ -1,6 +1,6 @@
 # cga-directory-connector
 
-![Version: 0.0.6](https://img.shields.io/badge/Version-0.0.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Directory Connector
 
@@ -9,8 +9,8 @@ A Helm chart for Barracuda CloudGen Access Directory Connector
 To install the chart with the release name `my-release`:
 
 ```console
-$ helm repo add barracuda-cloudgen-access https://barracuda-cloudgen-access.github.io/helm-charts
-$ helm install my-release barracuda-cloudgen-access/cga-directory-connector
+helm repo add barracuda-cloudgen-access https://barracuda-cloudgen-access.github.io/helm-charts
+helm install my-release barracuda-cloudgen-access/cga-directory-connector
 ```
 
 ## URLs
@@ -25,10 +25,6 @@ $ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| authToken.existingSecret.key | string | `""` | Existing secret key |
-| authToken.existingSecret.name | string | `""` | Existing secret resource name |
-| authToken.newSecret.value | string | `""` | Enrollment token value to be created with new secret |
-| authToken.type | string | `""` | Available directory types: azure/google/okta |
 | commonPodAnnotations | object | `{}` | Provide pod annotations that all pods will use |
 | cronjob.enabled | bool | `false` | Enable cronjob usage |
 | cronjob.schedule | string | `"*/30 * * * *"` | Cronjob schedule |

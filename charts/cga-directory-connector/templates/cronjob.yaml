@@ -33,11 +33,6 @@ spec:
                     secretKeyRef:
                       name: {{ .Values.enrollmentToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
                       key: {{ .Values.enrollmentToken.existingSecret.key | default "enrollmentToken" }}
-                - name: {{ printf "FYDE_%s_AUTH_TOKEN" (upper .Values.authToken.type) }}
-                  valueFrom:
-                    secretKeyRef:
-                      name: {{ .Values.authToken.existingSecret.name | default (include "cga-directory-connector.fullname" .) }}
-                      key: {{ .Values.authToken.existingSecret.key | default "authToken" }}
                 - name: FYDE_PROMETHEUS
                   value: "true"
                 - name: FYDE_PROMETHEUS_PORT
