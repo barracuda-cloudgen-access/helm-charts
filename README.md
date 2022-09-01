@@ -31,8 +31,28 @@ You can then run `helm search repo barracuda-cloudgen-access` to see the charts.
 
 ## Actions
 
-- Create chart docs: `make helm-docs`
-- Lint: `make lint`
+The actions described here are executed/valited automatically on Pull Requests.
+
+### Lint
+
+Run the linter locally:
+
+```sh
+make lint
+```
+
+### Pre-commit hooks
+
+This repository uses [pre-commit hooks](https://pre-commit.com/#install) and
+[norwoodj/helm-docs](https://github.com/norwoodj/helm-docs)to ensure helm chart docs are updated.
+
+Install pre-commits on macOS using brew:
+
+```sh
+brew install pre-commit norwoodj/tap/helm-docs
+pre-commit install
+pre-commit install-hooks
+```
 
 ## Contributing
 

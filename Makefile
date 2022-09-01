@@ -34,7 +34,7 @@ helm-deps:
 
 helm-docs:
 	docker run --rm --volume "$$(pwd):/helm-docs" \
-		-u $$(id -u) jnorwood/helm-docs:v1.5.0
+		-u $$(id -u) jnorwood/helm-docs:v1.11.0
 
 lint: helm-deps
 	helm lint ./charts/*
