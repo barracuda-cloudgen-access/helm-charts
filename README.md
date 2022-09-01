@@ -44,7 +44,7 @@ make lint
 ### Pre-commit hooks
 
 This repository uses [pre-commit hooks](https://pre-commit.com/#install) and
-[norwoodj/helm-docs](https://github.com/norwoodj/helm-docs)to ensure helm chart docs are updated.
+[norwoodj/helm-docs](https://github.com/norwoodj/helm-docs) to ensure helm chart docs are updated.
 
 Install pre-commits on macOS using brew:
 
