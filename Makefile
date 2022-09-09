@@ -3,7 +3,7 @@
 .ONESHELL:
 SHELL = bash
 .SHELLFLAGS = -eu -c
-.PHONY: gh-changelog gh-pages-readme-sync git-clean helm-deps helm-docs lint
+.PHONY: gh-changelog gh-pages-readme-sync helm-deps lint
 
 ### Actions
 
@@ -20,21 +20,9 @@ gh-pages-readme-sync:
 	git push origin gh-pages
 	git checkout -
 
-git-clean:
-	@if git diff --exit-code; then
-		echo -e "\n####### Git is clean\n"
-	else
-		echo -e "\n####### Git changes detected! Check and commit changes !!!\n"
-		exit 1
-	fi
-
 helm-deps:
 	find ./charts/ -maxdepth 1 -mindepth 1 -type d -print0 \
 		-exec helm dependency update {} \;
-
-helm-docs:
-	docker run --rm --volume "$$(pwd):/helm-docs" \
-		-u $$(id -u) jnorwood/helm-docs:v1.11.0
 
 lint: helm-deps
 	helm lint ./charts/*
