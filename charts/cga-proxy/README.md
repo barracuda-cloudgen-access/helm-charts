@@ -17,8 +17,6 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 
 **Homepage:** <https://github.com/barracuda-cloudgen-access/helm-charts>
 
-**Documentation:** <https://campus.barracuda.com/product/cloudgenaccess/doc/93201588/cloudgen-access-proxy>
-
 **Product homepage:** <https://www.barracuda.com/products/cloudgen-access>
 
 ## Requirements
