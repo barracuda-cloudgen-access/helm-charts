@@ -3,6 +3,23 @@ entries:
   cga-directory-connector:
   - apiVersion: v2
     appVersion: 1.3.23
+    created: "2023-01-30T14:04:02.707478718Z"
+    description: A Helm chart for Barracuda CloudGen Access Directory Connector
+    digest: b20c07043b94ee3e6800a333a57c511e67280c55fefdf9437badede7a6ac568e
+    home: https://github.com/barracuda-cloudgen-access/helm-charts
+    icon: https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/main/misc/CGA_ico_500x500.png
+    keywords:
+    - barracuda
+    - cloudgen
+    - access
+    - zero-trust
+    name: cga-directory-connector
+    type: application
+    urls:
+    - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-directory-connector-1.0.2/cga-directory-connector-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 1.3.23
     created: "2022-10-27T10:30:48.746610941Z"
     description: A Helm chart for Barracuda CloudGen Access Directory Connector
     digest: e7a76c8652594972194179ab93d46c8c3db4cdf688a85e15b057e8b778118379
@@ -138,6 +155,27 @@ entries:
     - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-directory-connector-0.0.1/cga-directory-connector-0.0.1.tgz
     version: 0.0.1
   cga-proxy:
+  - apiVersion: v2
+    created: "2023-01-30T14:04:02.918749006Z"
+    dependencies:
+    - condition: orchestrator.highAvailability.enabled
+      name: redis-ha
+      repository: https://dandydeveloper.github.io/charts
+      version: 4.12.9
+    description: A Helm chart for Barracuda CloudGen Access Proxy
+    digest: beaaa4c52acb2943b8cc26e2ec2625a31b73c05d752959e8b05b08acf1ce91ca
+    home: https://github.com/barracuda-cloudgen-access/helm-charts
+    icon: https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/main/misc/CGA_ico_500x500.png
+    keywords:
+    - barracuda
+    - cloudgen
+    - access
+    - zero-trust
+    name: cga-proxy
+    type: application
+    urls:
+    - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-proxy-0.2.10/cga-proxy-0.2.10.tgz
+    version: 0.2.10
   - apiVersion: v2
     created: "2022-08-16T10:23:34.867998677Z"
     dependencies:
@@ -421,4 +459,4 @@ entries:
     urls:
     - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-proxy-0.1.2/cga-proxy-0.1.2.tgz
     version: 0.1.2
-generated: "2022-10-27T10:30:48.746674341Z"
+generated: "2023-01-30T14:04:02.918876706Z"
