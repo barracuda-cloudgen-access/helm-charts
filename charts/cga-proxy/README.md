@@ -1,6 +1,6 @@
 # cga-proxy
 
-![Version: 0.2.9](https://img.shields.io/badge/Version-0.2.9-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Proxy
 
@@ -16,8 +16,6 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 ## URLs
 
 **Homepage:** <https://github.com/barracuda-cloudgen-access/helm-charts>
-
-**Documentation:** <https://campus.barracuda.com/product/cloudgenaccess/doc/93201588/cloudgen-access-proxy>
 
 **Product homepage:** <https://www.barracuda.com/products/cloudgen-access>
 

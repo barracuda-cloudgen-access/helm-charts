@@ -1,6 +1,6 @@
 # cga-directory-connector
 
-![Version: 1.0.1](https://img.shields.io/badge/Version-1.0.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 1.0.3](https://img.shields.io/badge/Version-1.0.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Directory Connector
 
@@ -16,8 +16,6 @@ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 ## URLs
 
 **Homepage:** <https://github.com/barracuda-cloudgen-access/helm-charts>
-
-**Documentation:** <https://campus.barracuda.com/product/cloudgenaccess/doc/93201549/user-directory-connector>
 
 **Product homepage:** <https://www.barracuda.com/products/cloudgen-access>
 
@@ -37,8 +35,8 @@ helm install my-release barracuda-cloudgen-access/cga-directory-connector
 | fullnameOverride | string | `""` | Provide a name to substitute for the full names of resources |
 | image.pullPolicy | string | `"IfNotPresent"` | Docker image pullPolicy |
 | image.repository | string | `"fydeinc/fyde-connector"` | Docker image to use |
-| image.sha256 | string | `"e5c626d6349c629cfdee4ba3136bd636967642534a4cf6d427a32c8ab3c2dc87"` | Docker image checksum |
-| image.tag | string | `"1.3.23"` | Docker image tag |
+| image.sha256 | string | `""` | Docker image checksum |
+| image.tag | string | `""` | Docker image tag |
 | logLevel | string | `"info"` | Log level to use. Valid values: error/warning/info/debug |
 | nameOverride | string | `""` | Provide a name in place of cga-directory-connector for labels |
 | nodeSelector | object | `{}` |  |
