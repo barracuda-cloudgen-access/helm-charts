@@ -49,14 +49,3 @@ Selector labels
 app.kubernetes.io/name: {{ include "cga-directory-connector.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
-
-{{/*
-Directory Connector image
-*/}}
-{{- define "cga-directory-connector.imageConcat" -}}
-{{- if .Values.image.sha256 }}
-{{- printf "%s:%s@sha256:%s" .Values.image.repository .Values.image.tag .Values.image.sha256 -}}
-{{- else }}
-{{- printf "%s:%s" .Values.image.repository .Values.image.tag -}}
-{{- end }}
-{{- end }}
