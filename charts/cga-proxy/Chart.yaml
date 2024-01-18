@@ -4,7 +4,7 @@ description: A Helm chart for Barracuda CloudGen Access Proxy
 home: https://github.com/barracuda-cloudgen-access/helm-charts
 icon: https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/main/misc/CGA_ico_500x500.png
 type: application
-version: 0.2.10
+version: 0.2.11
 keywords:
   - barracuda
   - cloudgen

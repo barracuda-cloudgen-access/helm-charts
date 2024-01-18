@@ -52,9 +52,9 @@ orchestrator:
     # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
     # -- Docker image tag
-    tag: "1.3.14"
+    tag: "1.3.17"
     # -- Docker image checksum
-    sha256: 1a7deb5ae211bf74b2e7eb4a47263e13ee11edeb4ac9c1509e1e3e569bee3eb9
+    sha256: 80e7c00bc9e7cdc04af8821a41db3ea68aa76629ac1024da812b371f48d32a6d
 
   # -- Configure orchestrator with environment variables.
   # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
@@ -105,13 +105,13 @@ envoy:
 
   image:
     # -- Docker image to use
-    repository: fydeinc/envoyproxy-centos
+    repository: fydeinc/envoyproxy
     # -- Docker image pullPolicy
     pullPolicy: IfNotPresent
     # -- Docker image tag
-    tag: "1.13.8.1"
+    tag: "1.13.8.2"
     # -- Docker image checksum
-    sha256: 9d97c0e3c3f9f72e20c30d145dbd71bf1456e45a833ffe41aafe2b7b10eb2a02
+    sha256: 9fadb0a491db89393736a90188c8a2f01b57835abdd4cd14684f82fd198a7d50
 
   # -- Configure envoy with environment variables.
   # <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters>
