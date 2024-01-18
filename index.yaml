@@ -173,6 +173,27 @@ entries:
     version: 0.0.1
   cga-proxy:
   - apiVersion: v2
+    created: "2024-01-18T18:25:57.100278242Z"
+    dependencies:
+    - condition: orchestrator.highAvailability.enabled
+      name: redis-ha
+      repository: https://dandydeveloper.github.io/charts
+      version: 4.12.9
+    description: A Helm chart for Barracuda CloudGen Access Proxy
+    digest: 9a6434ac6093a5e3a4289d4554d2b985600fdb0eb19d22e41d46588ec8eb35e3
+    home: https://github.com/barracuda-cloudgen-access/helm-charts
+    icon: https://raw.githubusercontent.com/barracuda-cloudgen-access/helm-charts/main/misc/CGA_ico_500x500.png
+    keywords:
+    - barracuda
+    - cloudgen
+    - access
+    - zero-trust
+    name: cga-proxy
+    type: application
+    urls:
+    - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-proxy-0.2.11/cga-proxy-0.2.11.tgz
+    version: 0.2.11
+  - apiVersion: v2
     created: "2023-01-30T14:04:02.918749006Z"
     dependencies:
     - condition: orchestrator.highAvailability.enabled
@@ -476,4 +497,4 @@ entries:
     urls:
     - https://github.com/barracuda-cloudgen-access/helm-charts/releases/download/cga-proxy-0.1.2/cga-proxy-0.1.2.tgz
     version: 0.1.2
-generated: "2023-06-22T15:19:30.552769+01:00"
+generated: "2024-01-18T18:25:57.100461335Z"
