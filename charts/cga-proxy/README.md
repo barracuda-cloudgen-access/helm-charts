@@ -1,6 +1,6 @@
 # cga-proxy
 
-![Version: 0.2.10](https://img.shields.io/badge/Version-0.2.10-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
+![Version: 0.2.12](https://img.shields.io/badge/Version-0.2.12-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square)
 
 A Helm chart for Barracuda CloudGen Access Proxy
 
@@ -32,9 +32,9 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 | commonPodAnnotations | object | `{}` | Provide pod annotations that all pods will use |
 | envoy.customEnv | list | `[]` | Configure envoy with environment variables. <https://campus.barracuda.com/product/cloudgenaccess/doc/93201605/access-proxy-parameters> |
 | envoy.image.pullPolicy | string | `"IfNotPresent"` | Docker image pullPolicy |
-| envoy.image.repository | string | `"fydeinc/envoyproxy-centos"` | Docker image to use |
-| envoy.image.sha256 | string | `"9d97c0e3c3f9f72e20c30d145dbd71bf1456e45a833ffe41aafe2b7b10eb2a02"` | Docker image checksum |
-| envoy.image.tag | string | `"1.13.8.1"` | Docker image tag |
+| envoy.image.repository | string | `"fydeinc/envoyproxy"` | Docker image to use |
+| envoy.image.sha256 | string | `"9fadb0a491db89393736a90188c8a2f01b57835abdd4cd14684f82fd198a7d50"` | Docker image checksum |
+| envoy.image.tag | string | `"1.13.8.2"` | Docker image tag |
 | envoy.loadBalancer.annotations | object | `{}` | Specify required annotations to configure load balancer |
 | envoy.loadBalancer.enabled | bool | `false` | Set to true to deploy a load balancer |
 | envoy.loadBalancer.externalTrafficPolicy | string | `"Local"` | Set externalTrafficPolicy for the load balancer service. "Local" is recomended to ensure minimum hops. change to "Cluster" if you experience network issues |
@@ -69,8 +69,8 @@ $ helm install my-release barracuda-cloudgen-access/cga-proxy
 | orchestrator.highAvailability.enabled | bool | `false` | Enabling high availability will deploy a redis cluster. To use an existing redis cluster provide redis settings with environment variables instead |
 | orchestrator.image.pullPolicy | string | `"IfNotPresent"` | Docker image pullPolicy |
 | orchestrator.image.repository | string | `"fydeinc/fydeproxy"` | Docker image to use |
-| orchestrator.image.sha256 | string | `"1a7deb5ae211bf74b2e7eb4a47263e13ee11edeb4ac9c1509e1e3e569bee3eb9"` | Docker image checksum |
-| orchestrator.image.tag | string | `"1.3.14"` | Docker image tag |
+| orchestrator.image.sha256 | string | `"80e7c00bc9e7cdc04af8821a41db3ea68aa76629ac1024da812b371f48d32a6d"` | Docker image checksum |
+| orchestrator.image.tag | string | `"1.3.17"` | Docker image tag |
 | orchestrator.nodeSelector | object | `{}` |  |
 | orchestrator.podAnnotations | object | `{}` |  |
 | orchestrator.podSecurityContext | object | `{}` |  |
