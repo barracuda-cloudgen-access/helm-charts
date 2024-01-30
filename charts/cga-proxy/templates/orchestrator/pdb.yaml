@@ -1,6 +1,10 @@
 {{- if gt (include "cga-proxy.orchestrator.replicaCalc" . | int) 1 -}}
 ---
+{{ if $.Capabilities.APIVersions.Has "policy/v1/PodDisruptionBudget" -}}
+apiVersion: policy/v1
+{{- else -}}
 apiVersion: policy/v1beta1
+{{- end }}
 kind: PodDisruptionBudget
 metadata:
   name: {{ include "cga-proxy.orchestrator.fullname" . }}
